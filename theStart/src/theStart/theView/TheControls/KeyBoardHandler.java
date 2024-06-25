@@ -79,7 +79,7 @@ public class KeyBoardHandler {
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			//camera.display =false;
+			camera.display =false;
 			
 		}
 	}

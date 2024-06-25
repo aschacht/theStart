@@ -755,14 +755,7 @@ public class FlatLander {
 				} else if (pair.isFire() && pair.getFireCount() > 0) {
 					pair.setFireCount(pair.getFireCount() - 1);
 				}
-//				if (xyPair.getBackFire() && xyPair.getBackFireCount() == 0) {
-//					xyPair.parent.setBackFire(true);
-//					xyPair.parent.setBackFireCount(1);
-//					xyPair.setBackFire(false);
-//					xyPair.setBackFireCount(0);
-//				} else if (xyPair.getBackFire() && xyPair.getBackFireCount() > 0) {
-//					xyPair.setBackFireCount(xyPair.getBackFireCount() - 1);
-//				}
+
 
 				updateToEnd(xyPair);
 			}

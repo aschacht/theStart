@@ -50,18 +50,13 @@ public class BANG extends LOG{
 		boolean go = true;
 		while(go) {
 
-//			try {
+
 			long start = System.currentTimeMillis();
 			camera.takePictureOfFlatLand(canvas);
 			
 			long end = System.currentTimeMillis();
 			flatland.setTime(flatland.getTime()+1);
-//			System.out.println("Elapsed Time: "+(end-start));
-//				Thread.sleep(25);
-//			} catch (InterruptedException e) {
-				
-//				e.printStackTrace();
-//			}
+
 			
 
 		}

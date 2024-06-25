@@ -30,7 +30,7 @@ import theStart.theStuff.SynapseFaceBook;
 import theStart.theStuff.SynapsePair;
 import theStart.theView.TheControls.KeyBoardHandler;
 
-public class TheStartCamera implements CameraContract{
+public class TheStartCamera implements CameraContract {
 
 	private int width;
 	private int height;
@@ -38,7 +38,6 @@ public class TheStartCamera implements CameraContract{
 	private int posyinflatland;
 	private int posxoncanvas;
 	private int posyoncanvas;
-
 
 	private KeyBoardHandler cameraKeybordHandler;
 	private ViewableFlatLand flatland;
@@ -48,7 +47,6 @@ public class TheStartCamera implements CameraContract{
 	public boolean display = true;
 
 	public TheStartCamera(int width, int height, int posxinflatland, int posyinflatland, ViewableFlatLand flatLand2) {
-
 
 		this.flatland = flatLand2;
 		this.setWidth(width);
@@ -98,7 +96,6 @@ public class TheStartCamera implements CameraContract{
 		this.posyinflatland = posyinflatland;
 	}
 
-
 	public void takePictureOfFlatLand(Canvas canvas) {
 		canvas.createBufferStrategy(2);
 		bufferStrategy = canvas.getBufferStrategy();
@@ -108,7 +105,7 @@ public class TheStartCamera implements CameraContract{
 		graphics.drawString("BLAH", 20, 20);
 		graphics.setColor(Color.black);
 		graphics.fillRect(0, 0, width, height);
-		
+
 		long seed = 10398127;
 		FlatLanderRandom generator = new FlatLanderRandom(seed);
 		Color color = Color.blue;
@@ -133,56 +130,16 @@ public class TheStartCamera implements CameraContract{
 					int ofType = (int) (Math.random() * FlatLanderType.values().length + 1);
 					if (!FlatLanderFaceBook.getInstance().check(i, j)) {
 						FlatLanderFaceBook.getInstance()
-						.add(new FlatLander(i, j, FlatLanderType.ofType(ofType), new FlatLanderRandom(seed2),
-								seed2, flatland, 1, direction2, length2, dendritesStatic, direction1, length1,
-								color, fireColor, backFireColor, fireAndBackFireColor, dendriteSynapseColor,
-								axonSynapseColor, dendriteColor, axonColor));
-						
+								.add(new FlatLander(i, j, FlatLanderType.ofType(ofType), new FlatLanderRandom(seed2),
+										seed2, flatland, 1, direction2, length2, dendritesStatic, direction1, length1,
+										color, fireColor, backFireColor, fireAndBackFireColor, dendriteSynapseColor,
+										axonSynapseColor, dendriteColor, axonColor));
+
 					}
 				}
 			}
 		}
-//		for (int k = 0; k < 10; k++) {
-//			long seed22 = (long) (Math.random() * 98594835);
-//			int dendritesStatic1 = (int) (6);
-//			int direction11 = (int) (Math.random() * 360);
-//			int length11 = (int) (Math.random() * 200) + 200;
-//			int axonStatic2 = (int) (1);
-//			int direction22 = (int) (Math.random() * 360);
-//			int length22 = (int) (Math.random() * 3000) + 200;
-//			int ofType = (int) (Math.random() * FlatLanderType.values().length + 1);
-//			FlatLanderFaceBook.getInstance()
-//					.add(new FlatLander(50, 50, FlatLanderType.ofType(ofType), new FlatLanderRandom(seed22), seed22,
-//							flatland, 1, direction22, length22, dendritesStatic1, direction11, length11, color,
-//							fireColor, backFireColor, fireAndBackFireColor, dendriteSynapseColor, axonSynapseColor,
-//							dendriteColor, axonColor));
-//		}
-		
-//		for (int k = 0; k < 10; k++) {
-//			long seed2 = (long) (Math.random() * 98594835);
-//			int dendritesStatic = (int) (6);
-//			int direction1 = (int) (Math.random() * 360);
-//			int length1 = (int) (Math.random() * 200) + 200;
-//			int axonStatic = (int) (1);
-//			int direction2 = (int) (Math.random() * 360);
-//			int length2 = (int) (Math.random() * 3000) + 200;
-//			if (k % 2 == 0) {
-//				if (!FlatLanderFaceBook.getInstance().check(-50, -50 + (-50 * k))) {
-//					FlatLanderFaceBook.getInstance().add(new FlatLander(-50, -50 + (-50 * k),
-//							FlatLanderType.SupportNuron, new FlatLanderRandom(seed2), seed2, flatland, 1, direction2,
-//							length2, dendritesStatic, direction1, length1, color, fireColor, backFireColor,
-//							fireAndBackFireColor, dendriteSynapseColor, axonSynapseColor, dendriteColor, axonColor));
-//				}
-//			} else {
-//				if (!FlatLanderFaceBook.getInstance().check(50 + (50 * k), 50)) {
-//					FlatLanderFaceBook.getInstance().add(new FlatLander(50 + (50 * k), 50, FlatLanderType.SupportNuron,
-//							new FlatLanderRandom(seed2), seed2, flatland, 1, direction2, length2,dendritesStatic,
-//							270, length1, color, fireColor, backFireColor, fireAndBackFireColor,
-//							dendriteSynapseColor, axonSynapseColor, dendriteColor, axonColor));
-//				}
-//			}
-//		}
-		
+
 		ArrayList<FlatLander> flatlanderFaceBook = FlatLanderFaceBook.getInstance().getFlatlanderFaceBook();
 		long seed2 = (long) (Math.random() * 98594835);
 		if (FlatLanderFaceBook.getInstance().getInputNurons().size() <= 0) {
@@ -200,51 +157,51 @@ public class TheStartCamera implements CameraContract{
 					axonSynapseColor, dendriteColor, axonColor);
 			FlatLanderFaceBook.getInstance().addInputNuron(InputNuron);
 		}
-		
+
 		ArrayList<FlatLander> flatlanderFaceBookPool = FlatLanderFaceBook.getInstance().getFlatlanderFaceBookPool();
-		
+
 		for (FlatLander flatLander : flatlanderFaceBookPool) {
 			flatLander.updateBody();
 		}
-		
+
 		for (FlatLander flatLander : flatlanderFaceBookPool) {
 			if (flatLander.getXposinflatland() >= posxinflatland - width / 2
 					&& flatLander.getXposinflatland() <= posxinflatland + width / 2) {
 				if (flatLander.getYposinflatland() >= posyinflatland - height / 2
 						&& flatLander.getYposinflatland() <= posyinflatland + height / 2) {
-					
+
 					flatLander.updateBranches();
-					
+
 				}
 			}
 		}
-		
+
 		for (FlatLander flatLander : flatlanderFaceBookPool) {
 			if (flatLander.getXposinflatland() >= posxinflatland - width / 2
 					&& flatLander.getXposinflatland() <= posxinflatland + width / 2) {
 				if (flatLander.getYposinflatland() >= posyinflatland - height / 2
 						&& flatLander.getYposinflatland() <= posyinflatland + height / 2) {
-					
+
 					flatLander.growBranches();
-					
+
 				}
 			}
 		}
-		
+
 		checkAndUpdateInputNuron(graphics);
-		
+
 		ArrayList<SynapsePair> synapseFaceBook = SynapseFaceBook.getInstance().getSynapseFaceBook();
 		for (SynapsePair synapsePair : synapseFaceBook) {
 			synapsePair.update();
 		}
-		
+
 		for (FlatLander flatLander : flatlanderFaceBookPool) {
-			
+
 			ArrayList<XYPair> dendrites = flatLander.getDendrites();
 			for (XYPair xyPair : dendrites) {
-				
+
 				XYPair terminal = getTerminalXYPair(xyPair);
-				
+
 				for (FlatLander flatLander2 : flatlanderFaceBookPool) {
 					if (!flatLander2.equals(flatLander)) {
 						XYPair axon = flatLander2.axon;
@@ -255,25 +212,25 @@ public class TheStartCamera implements CameraContract{
 								XYPair axonXYPair = getXYAgainstTerminal(axon, terminal);
 								axonXYPair.formAxionSynapse();
 								SynapseFaceBook.getInstance().add(new SynapsePair(axonXYPair, terminal));
-								
+
 							}
 						}
-						
+
 					}
 				}
 			}
-			
+
 		}
 		for (FlatLander flatLander : flatlanderFaceBookPool) {
-			
+
 			XYPair axon = flatLander.getAxon();
 			if (axon != null) {
 				XYPair terminal = getTerminalXYPair(axon);
-				
+
 				for (FlatLander flatLander2 : flatlanderFaceBookPool) {
 					if (!flatLander2.equals(flatLander)) {
 						ArrayList<XYPair> dendrites = flatLander2.getDendrites();
-						
+
 						for (XYPair dend : dendrites) {
 							if (checkXYAgainstTerminal(dend, terminal)) {
 								terminal.setGrow(false);
@@ -281,83 +238,79 @@ public class TheStartCamera implements CameraContract{
 								XYPair dendriteXYPair = getXYAgainstTerminal(dend, terminal);
 								dendriteXYPair.formDenriteSynapse();
 								SynapseFaceBook.getInstance().add(new SynapsePair(terminal, dendriteXYPair));
-								
+
 							}
-							
+
 						}
 					}
 				}
 			}
 		}
-		
+
 		if (this.display) {
 			for (FlatLander flatLander : flatlanderFaceBookPool) {
 				if (flatLander.getXposinflatland() >= posxinflatland - width / 2
 						&& flatLander.getXposinflatland() <= posxinflatland + width / 2) {
 					if (flatLander.getYposinflatland() >= posyinflatland - height / 2
 							&& flatLander.getYposinflatland() <= posyinflatland + height / 2) {
-						
+
 						ArrayList<XYPair> branches = flatLander.getDendrites();
 						for (XYPair xyPair : branches) {
 							if (xyPair != null)
 								drawBranches(graphics, xyPair);
 						}
-						
+
 						XYPair axon = flatLander.getAxon();
 						if (axon != null)
 							drawBranches(graphics, axon);
-						
+
 					}
 				}
 			}
-			
+
 			for (FlatLander flatLander : flatlanderFaceBook) {
 				if (flatLander.getXposinflatland() >= posxinflatland - width / 2
 						&& flatLander.getXposinflatland() <= posxinflatland + width / 2) {
 					if (flatLander.getYposinflatland() >= posyinflatland - height / 2
 							&& flatLander.getYposinflatland() <= posyinflatland + height / 2) {
-						
+
 						if (flatLander.fire)
 							graphics.setColor(Color.CYAN);
 						else
 							graphics.setColor(Color.red);
-						
-//					graphics.drawRect(mapFromFlatLandToScreenSpaceX(flatLander.getXposinflatland()),
-//							mapFromFlatLandToScreenSpaceY(flatLander.getYposinflatland()), 1, 1);
+
 						graphics.fillOval(mapFromFlatLandToScreenSpaceX(flatLander.getXposinflatland() - 10),
 								mapFromFlatLandToScreenSpaceY(flatLander.getYposinflatland() - 10), 20, 20);
 					}
 				}
 			}
-			
+
 			for (SynapsePair synapsePair : synapseFaceBook) {
 				XYPair axon = synapsePair.getAxon();
 				Color axonColor2 = axon.getAxonSynapseColor();
 				XYPair dendrite = synapsePair.getDendrite();
 				Color dendColor = dendrite.getDendriteSynapseColor();
-				
+
 				graphics.setColor(axonColor2);
 				graphics.drawRect(mapFromFlatLandToScreenSpaceX(axon.getX()),
 						mapFromFlatLandToScreenSpaceY(axon.getY()), 5, 5);
 				graphics.setColor(dendColor);
 				graphics.drawRect(mapFromFlatLandToScreenSpaceX(dendrite.getX() - 5),
 						mapFromFlatLandToScreenSpaceY(dendrite.getY() - 5), 5, 5);
-				
+
 			}
 		}
 		graphics.dispose();
 		bufferStrategy.show();
 	}
 
-	
-	
 	public Graphics takePictureOfFlatLand(Graphics graphics) {
 		currentTime = flatland.getTime();
 		graphics.setColor(Color.green);
 		graphics.drawString("BLAH", 20, 20);
 		graphics.setColor(Color.black);
 		graphics.fillRect(0, 0, width, height);
-		
+
 		long seed = 10398127;
 		FlatLanderRandom generator = new FlatLanderRandom(seed);
 		Color color = Color.blue;
@@ -382,11 +335,11 @@ public class TheStartCamera implements CameraContract{
 					int ofType = (int) (Math.random() * FlatLanderType.values().length + 1);
 					if (!FlatLanderFaceBook.getInstance().check(i, j)) {
 						FlatLanderFaceBook.getInstance()
-						.add(new FlatLander(i, j, FlatLanderType.ofType(ofType), new FlatLanderRandom(seed2),
-								seed2, flatland, 1, direction2, length2, dendritesStatic, direction1, length1,
-								color, fireColor, backFireColor, fireAndBackFireColor, dendriteSynapseColor,
-								axonSynapseColor, dendriteColor, axonColor));
-						
+								.add(new FlatLander(i, j, FlatLanderType.ofType(ofType), new FlatLanderRandom(seed2),
+										seed2, flatland, 1, direction2, length2, dendritesStatic, direction1, length1,
+										color, fireColor, backFireColor, fireAndBackFireColor, dendriteSynapseColor,
+										axonSynapseColor, dendriteColor, axonColor));
+
 					}
 				}
 			}
@@ -406,7 +359,7 @@ public class TheStartCamera implements CameraContract{
 //							fireColor, backFireColor, fireAndBackFireColor, dendriteSynapseColor, axonSynapseColor,
 //							dendriteColor, axonColor));
 //		}
-		
+
 //		for (int k = 0; k < 10; k++) {
 //			long seed2 = (long) (Math.random() * 98594835);
 //			int dendritesStatic = (int) (6);
@@ -431,7 +384,7 @@ public class TheStartCamera implements CameraContract{
 //				}
 //			}
 //		}
-		
+
 		ArrayList<FlatLander> flatlanderFaceBook = FlatLanderFaceBook.getInstance().getFlatlanderFaceBook();
 		long seed2 = (long) (Math.random() * 98594835);
 		if (FlatLanderFaceBook.getInstance().getInputNurons().size() <= 0) {
@@ -449,51 +402,51 @@ public class TheStartCamera implements CameraContract{
 					axonSynapseColor, dendriteColor, axonColor);
 			FlatLanderFaceBook.getInstance().addInputNuron(InputNuron);
 		}
-		
+
 		ArrayList<FlatLander> flatlanderFaceBookPool = FlatLanderFaceBook.getInstance().getFlatlanderFaceBookPool();
-		
+
 		for (FlatLander flatLander : flatlanderFaceBookPool) {
 			flatLander.updateBody();
 		}
-		
+
 		for (FlatLander flatLander : flatlanderFaceBookPool) {
 			if (flatLander.getXposinflatland() >= posxinflatland - width / 2
 					&& flatLander.getXposinflatland() <= posxinflatland + width / 2) {
 				if (flatLander.getYposinflatland() >= posyinflatland - height / 2
 						&& flatLander.getYposinflatland() <= posyinflatland + height / 2) {
-					
+
 					flatLander.updateBranches();
-					
+
 				}
 			}
 		}
-		
+
 		for (FlatLander flatLander : flatlanderFaceBookPool) {
 			if (flatLander.getXposinflatland() >= posxinflatland - width / 2
 					&& flatLander.getXposinflatland() <= posxinflatland + width / 2) {
 				if (flatLander.getYposinflatland() >= posyinflatland - height / 2
 						&& flatLander.getYposinflatland() <= posyinflatland + height / 2) {
-					
+
 					flatLander.growBranches();
-					
+
 				}
 			}
 		}
-		
+
 		checkAndUpdateInputNuron(graphics);
-		
+
 		ArrayList<SynapsePair> synapseFaceBook = SynapseFaceBook.getInstance().getSynapseFaceBook();
 		for (SynapsePair synapsePair : synapseFaceBook) {
 			synapsePair.update();
 		}
-		
+
 		for (FlatLander flatLander : flatlanderFaceBookPool) {
-			
+
 			ArrayList<XYPair> dendrites = flatLander.getDendrites();
 			for (XYPair xyPair : dendrites) {
-				
+
 				XYPair terminal = getTerminalXYPair(xyPair);
-				
+
 				for (FlatLander flatLander2 : flatlanderFaceBookPool) {
 					if (!flatLander2.equals(flatLander)) {
 						XYPair axon = flatLander2.axon;
@@ -504,25 +457,25 @@ public class TheStartCamera implements CameraContract{
 								XYPair axonXYPair = getXYAgainstTerminal(axon, terminal);
 								axonXYPair.formAxionSynapse();
 								SynapseFaceBook.getInstance().add(new SynapsePair(axonXYPair, terminal));
-								
+
 							}
 						}
-						
+
 					}
 				}
 			}
-			
+
 		}
 		for (FlatLander flatLander : flatlanderFaceBookPool) {
-			
+
 			XYPair axon = flatLander.getAxon();
 			if (axon != null) {
 				XYPair terminal = getTerminalXYPair(axon);
-				
+
 				for (FlatLander flatLander2 : flatlanderFaceBookPool) {
 					if (!flatLander2.equals(flatLander)) {
 						ArrayList<XYPair> dendrites = flatLander2.getDendrites();
-						
+
 						for (XYPair dend : dendrites) {
 							if (checkXYAgainstTerminal(dend, terminal)) {
 								terminal.setGrow(false);
@@ -530,47 +483,47 @@ public class TheStartCamera implements CameraContract{
 								XYPair dendriteXYPair = getXYAgainstTerminal(dend, terminal);
 								dendriteXYPair.formDenriteSynapse();
 								SynapseFaceBook.getInstance().add(new SynapsePair(terminal, dendriteXYPair));
-								
+
 							}
-							
+
 						}
 					}
 				}
 			}
 		}
-		
+
 		if (this.display) {
 			for (FlatLander flatLander : flatlanderFaceBookPool) {
 				if (flatLander.getXposinflatland() >= posxinflatland - width / 2
 						&& flatLander.getXposinflatland() <= posxinflatland + width / 2) {
 					if (flatLander.getYposinflatland() >= posyinflatland - height / 2
 							&& flatLander.getYposinflatland() <= posyinflatland + height / 2) {
-						
+
 						ArrayList<XYPair> branches = flatLander.getDendrites();
 						for (XYPair xyPair : branches) {
 							if (xyPair != null)
 								drawBranches(graphics, xyPair);
 						}
-						
+
 						XYPair axon = flatLander.getAxon();
 						if (axon != null)
 							drawBranches(graphics, axon);
-						
+
 					}
 				}
 			}
-			
+
 			for (FlatLander flatLander : flatlanderFaceBook) {
 				if (flatLander.getXposinflatland() >= posxinflatland - width / 2
 						&& flatLander.getXposinflatland() <= posxinflatland + width / 2) {
 					if (flatLander.getYposinflatland() >= posyinflatland - height / 2
 							&& flatLander.getYposinflatland() <= posyinflatland + height / 2) {
-						
+
 						if (flatLander.fire)
 							graphics.setColor(Color.CYAN);
 						else
 							graphics.setColor(Color.red);
-						
+
 //					graphics.drawRect(mapFromFlatLandToScreenSpaceX(flatLander.getXposinflatland()),
 //							mapFromFlatLandToScreenSpaceY(flatLander.getYposinflatland()), 1, 1);
 						graphics.fillOval(mapFromFlatLandToScreenSpaceX(flatLander.getXposinflatland() - 10),
@@ -578,27 +531,26 @@ public class TheStartCamera implements CameraContract{
 					}
 				}
 			}
-			
+
 			for (SynapsePair synapsePair : synapseFaceBook) {
 				XYPair axon = synapsePair.getAxon();
 				Color axonColor2 = axon.getAxonSynapseColor();
 				XYPair dendrite = synapsePair.getDendrite();
 				Color dendColor = dendrite.getDendriteSynapseColor();
-				
+
 				graphics.setColor(axonColor2);
 				graphics.drawRect(mapFromFlatLandToScreenSpaceX(axon.getX()),
 						mapFromFlatLandToScreenSpaceY(axon.getY()), 5, 5);
 				graphics.setColor(dendColor);
 				graphics.drawRect(mapFromFlatLandToScreenSpaceX(dendrite.getX() - 5),
 						mapFromFlatLandToScreenSpaceY(dendrite.getY() - 5), 5, 5);
-				
+
 			}
 		}
-		
+
 		return graphics;
 	}
-	
-	
+
 	private void checkAndUpdateInputNuron(Graphics graphics) {
 		ArrayList<FlatLander> InputNurons = FlatLanderFaceBook.getInstance().getInputNurons();
 
@@ -642,8 +594,8 @@ public class TheStartCamera implements CameraContract{
 
 			return true;
 		} else if (xyPair2.getBranches() != null) {
-			if(xyPair2.getBranches().size()>0)
-			return checkXYAgainstTerminal(xyPair2.getBranches().get(0), terminal);
+			if (xyPair2.getBranches().size() > 0)
+				return checkXYAgainstTerminal(xyPair2.getBranches().get(0), terminal);
 			else
 				return false;
 		} else {
@@ -667,8 +619,8 @@ public class TheStartCamera implements CameraContract{
 		if (xyPair.getBranches() == null) {
 			return xyPair;
 		} else {
-			if(xyPair.theBranches.size()>0)
-			return getTerminalXYPair(xyPair.theBranches.get(0));
+			if (xyPair.theBranches.size() > 0)
+				return getTerminalXYPair(xyPair.theBranches.get(0));
 			return xyPair;
 		}
 	}
@@ -716,7 +668,11 @@ public class TheStartCamera implements CameraContract{
 		int output_start = 0;
 		int output_end = width;
 		double slope = 1.0 * (output_end - output_start) / (input_end - input_start);
-		return output_start + (int) Math.round(slope * (input - input_start));
+		int i = output_start + (int) Math.round(slope * (input - input_start));
+
+
+
+		return i;
 	}
 
 	public int mapFromFlatLandToScreenSpaceY(int input) {
@@ -725,9 +681,10 @@ public class TheStartCamera implements CameraContract{
 		int output_start = 0;
 		int output_end = height;
 		double slope = 1.0 * (output_end - output_start) / (input_end - input_start);
-		return output_start + (int) Math.round(slope * (input - input_start));
+		int i = output_start + (int) Math.round(slope * (input - input_start));
+
+		
+		return i;
 	}
-
-
 
 }
