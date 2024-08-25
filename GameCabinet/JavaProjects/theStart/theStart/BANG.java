@@ -5,13 +5,13 @@ import java.awt.Dimension;
 import java.util.HashMap;
 import java.util.Scanner;
 
-import FlatLandStructure.ViewableFlatLand;
+import FlatLand.ViewableFlatLand;
 import Logging.LOG;
 import theStart.theSpace.FlatLand;
 import theStart.theSpace.FlatLandDimension;
 import theStart.theSpace.FlatLandWindow;
+import theStart.theView.TheStartCamera;
 import theStart.theView.WebcamUpdater;
-import theStart.theView.TheControls.TheStartCamera;
 
 public class BANG extends LOG{
 
@@ -26,11 +26,9 @@ public class BANG extends LOG{
 		Scanner theScanner = new Scanner(System.in);
 		Canvas canvas = new Canvas();
 		System.out.println("please enter a canvas width: ");
-//		int canvasWidth=theScanner.nextInt();
-		int canvasWidth=800;
+		int canvasWidth=theScanner.nextInt();
 		System.out.println("please enter a canvas height: ");
-//		int canvasHeight=theScanner.nextInt();
-		int canvasHeight=800;
+		int canvasHeight=theScanner.nextInt();
 		theScanner.close();
 		ViewableFlatLand flatland = new ViewableFlatLand(canvasWidth, canvasHeight,true);
 		canvas.setPreferredSize(new Dimension(canvasWidth,canvasHeight));

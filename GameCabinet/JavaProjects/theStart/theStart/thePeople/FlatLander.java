@@ -17,7 +17,7 @@ import org.bytedeco.opencv.opencv_core.IplImage;
 
 import com.github.sarxos.webcam.Webcam;
 
-import FlatLandStructure.ViewableFlatLand;
+import FlatLand.ViewableFlatLand;
 import theStart.thePeople.FlatLander.XYPair;
 import theStart.theSpace.FlatLand;
 import theStart.theStuff.BranchType;

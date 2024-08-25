@@ -2,28 +2,15 @@ package theStart.theView;
 
 import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Random;
-
-import javax.swing.JPanel;
-
-import com.github.sarxos.webcam.Webcam;
-
 import FlatLand.ViewableFlatLand;
-import XMLLoader.PlayerWrper;
 import theStart.thePeople.FlatLander;
 import theStart.thePeople.FlatLander.XYPair;
 import theStart.thePeople.FlatLanderFaceBook;
-import theStart.theSpace.FlatLand;
 import theStart.theSpace.FlatLandWindow;
 import theStart.theStuff.BranchType;
-import theStart.theStuff.FlatLanderObjectLog;
 import theStart.theStuff.FlatLanderRandom;
 import theStart.theStuff.FlatLanderType;
 import theStart.theStuff.SynapseFaceBook;

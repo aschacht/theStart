@@ -8,10 +8,7 @@ import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 
 import theStart.theSpace.FlatLandWindow;
-
-
-
-
+import theStart.theView.TheStartCamera;
 
 
 
