@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.image.BufferStrategy;
 import javax.swing.JPanel;
 
+
 import TheGame.Board;
 import View.FlatLandWindow;
 import flatLand.trainingGround.FlatLandSelector;
