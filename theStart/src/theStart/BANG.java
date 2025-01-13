@@ -2,11 +2,14 @@ package theStart;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
 import FlatLandStructure.ViewableFlatLand;
 import Logging.LOG;
+import theStart.thePeople.FlatLander;
+import theStart.thePeople.FlatLanderFaceBook;
 import theStart.theSpace.FlatLand;
 import theStart.theSpace.FlatLandDimension;
 import theStart.theSpace.FlatLandWindow;
@@ -53,7 +56,10 @@ public class BANG extends LOG{
 		boolean go = true;
 		while(go) {
 
+			ArrayList<FlatLander> flatlanderFaceBookPool = FlatLanderFaceBook.getInstance().getFlatlanderFaceBookPool();
 
+
+			camera.update(flatlanderFaceBookPool);
 			long start = System.currentTimeMillis();
 			camera.takePictureOfFlatLand(canvas);
 			

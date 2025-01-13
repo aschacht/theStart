@@ -1,6 +1,7 @@
 package theStart.theView.TheControls;
 
 import java.awt.BufferCapabilities;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -46,6 +47,7 @@ public class GameScreen extends JPanel{
 		this.setPreferredSize(new Dimension(width,height));
 		this.setSize(new Dimension(width,height));
 		this.setMinimumSize(new Dimension(width,height));
+		
 		this.statusInstance = statusInstance;
 		
 
@@ -100,6 +102,8 @@ public class GameScreen extends JPanel{
 			}
 			if (statusInstance.isStatus(GAMSTATUS.BRAIN)&& theStartCamera!=null) {
 
+				g.setColor(Color.BLACK);
+				g.fillRect(0, 0, width, height);
 				theStartCamera.takePictureOfFlatLand(g);
 			}
 			if (!statusInstance.isStatus(GAMSTATUS.ANTSIM)) {

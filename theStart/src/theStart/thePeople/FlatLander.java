@@ -46,6 +46,8 @@ public class FlatLander {
 	public boolean fire;
 	private int xinImage;
 	private int yinImage;
+	private boolean isPulse=true;
+	private int pulseCount=0;
 
 	public class XYPair {
 		private int x;
@@ -55,22 +57,22 @@ public class FlatLander {
 		public ArrayList<XYPair> theBranches;
 		private long identifier;
 		private boolean grow = true;
-		private Color baseColor;
-		private Color fireColor;
-		private Color backFireColor;
-		private Color fireAndBackFireColor;
+		public Color baseColor;
+		public Color fireColor;
+		public Color backFireColor;
+		public Color fireAndBackFireColor;
 		private boolean fire = false;
 		private int fireCount;
 		private boolean backFire;
 		private int backFireCount;
 		private int length;
 		private BranchType type;
-		private Synapse dendriteSynapse;
-		private Color dendriteColor;
-		private Synapse axonSynapse;
-		private Color axonColor;
-		private Color dendriteSynapseColor;
-		private Color axonSynapseColor;
+		public Synapse dendriteSynapse;
+		public Color dendriteColor;
+		public Synapse axonSynapse;
+		public Color axonColor;
+		public Color dendriteSynapseColor;
+		public Color axonSynapseColor;
 
 		public boolean getGrow() {
 			return grow;
@@ -720,11 +722,34 @@ public class FlatLander {
 	}
 
 	public void updateBranches() {
+		pulseCount++;
+		
 		if (getDendrites() != null) {
 			for (XYPair xyPair : getDendrites()) {
 
 				updateToEnd(xyPair);
-
+//				if(xyPair.dendriteColor.getAlpha() > 0 && isPulse) {
+//					
+//					xyPair.dendriteColor = new Color(xyPair.dendriteColor.getRed(),xyPair.dendriteColor.getGreen(),xyPair.dendriteColor.getBlue(),
+//							xyPair.dendriteColor.getAlpha()-1);
+//					
+//					
+//					}else if(xyPair.dendriteColor.getAlpha() < 255 && !isPulse){
+//						
+//						xyPair.dendriteColor = new Color(xyPair.dendriteColor.getRed(),xyPair.dendriteColor.getGreen(),xyPair.dendriteColor.getBlue(),
+//								xyPair.dendriteColor.getAlpha()+1);
+//						
+//						
+//					
+//					}else if (xyPair.dendriteColor.getAlpha()==0 || xyPair.dendriteColor.getAlpha()==255) {
+//						isPulse= !isPulse;
+//					}else {						
+//						
+//					}
+				
+				
+				
+				
 			}
 		}
 
@@ -738,6 +763,7 @@ public class FlatLander {
 				}
 			} else {
 				if (this.fire) {
+					
 					axon2.setFire(true);
 					axon2.setFireCount(1);
 				}
