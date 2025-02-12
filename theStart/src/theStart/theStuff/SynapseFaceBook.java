@@ -22,6 +22,12 @@ public class SynapseFaceBook {
 	}
 
 	public void add(SynapsePair pair) {
+		
+		if(!isalreadyAdded(pair))
+			synapseFaceBook.add(pair);
+	}
+	
+	public boolean isalreadyAdded(SynapsePair pair) {
 		boolean isAreadyAdded = false;
 		for (SynapsePair synapsePair : synapseFaceBook) {
 			if (pair.getAxon().getX() == synapsePair.getAxon().getX()
@@ -31,8 +37,7 @@ public class SynapseFaceBook {
 				isAreadyAdded =true;
 			}
 		}
-		if(!isAreadyAdded)
-			synapseFaceBook.add(pair);
+		return isAreadyAdded;
 	}
 
 }

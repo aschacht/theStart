@@ -13,27 +13,29 @@ public class WebcamUpdater implements Runnable {
 	@Override
 	public void run() {
 		webcam = Webcam.getDefault();
-		webcam.setViewSize(new Dimension(176, 144));
+			
+		if(!webcam.isOpen())webcam.open();	
 		while(true) {
 			takeApicture();
 			try {
 				Thread.sleep(50);
-			} catch (InterruptedException e) {
-				
+			
+			} catch (InterruptedException e) {			
+				webcam.close();
 				e.printStackTrace();
 			}
 		}
+		
 	}
 
 	
 	private void takeApicture() {
 		
-		
 		ImageRepository.getInstance().holdToken();
-		webcam.open();
+
 		
 		BufferedImage image = webcam.getImage();
-		webcam.close();
+		
 		ImageRepository.getInstance().setImage(image);
 		ImageRepository.getInstance().releaseToken();
 		

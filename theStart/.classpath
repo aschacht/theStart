@@ -17,5 +17,11 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/GameView"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/LOGGING"/>
+	<classpathentry kind="src" path="/AntAnimation"/>
+	<classpathentry kind="src" path="/Monopoly_Island_Index"/>
+	<classpathentry kind="src" path="/trainingGround"/>
+	<classpathentry kind="src" path="/SonificationStructure"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

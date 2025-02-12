@@ -8,7 +8,6 @@ import java.awt.Image;
 import java.awt.image.BufferStrategy;
 import javax.swing.JPanel;
 
-
 import TheGame.Board;
 import View.FlatLandWindow;
 import flatLand.trainingGround.FlatLandSelector;
@@ -16,6 +15,8 @@ import flatLand.trainingGround.GAMSTATUS;
 import flatLand.trainingGround.GameStatus;
 import flatLand.trainingGround.theStudio.Camera;
 import src.Simulation;
+import theStart.thePeople.FlatLanderFaceBook;
+import theStart.theView.WebcamUpdater;
 
 
 
@@ -39,6 +40,7 @@ public class GameScreen extends JPanel{
 	private BufferStrategy bs;
 	private  Board board;
 	private FlatLandSelector flatLandSelector;
+	private WebcamUpdater webcamUpdater;
 
 	public GameScreen(int width, int height, GameStatus statusInstance) {
 		super();
@@ -49,7 +51,10 @@ public class GameScreen extends JPanel{
 		this.setMinimumSize(new Dimension(width,height));
 		
 		this.statusInstance = statusInstance;
-		
+
+		webcamUpdater = new WebcamUpdater();
+		Thread thread = new Thread(webcamUpdater);
+		thread.start();
 
 		
 		bs = new BufferStrategy() {
@@ -102,9 +107,12 @@ public class GameScreen extends JPanel{
 			}
 			if (statusInstance.isStatus(GAMSTATUS.BRAIN)&& theStartCamera!=null) {
 
+				
 				g.setColor(Color.BLACK);
 				g.fillRect(0, 0, width, height);
 				theStartCamera.takePictureOfFlatLand(g);
+				
+				
 			}
 			if (!statusInstance.isStatus(GAMSTATUS.ANTSIM)) {
 
