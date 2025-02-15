@@ -26,11 +26,17 @@ public class BANG extends LOG{
 		Scanner theScanner = new Scanner(System.in);
 		Canvas canvas = new Canvas();
 		System.out.println("please enter a canvas width: ");
-//		int canvasWidth=theScanner.nextInt();
-		int canvasWidth=800;
+		int canvasWidth=theScanner.nextInt();
+//		int canvasWidth=800;/
 		System.out.println("please enter a canvas height: ");
-//		int canvasHeight=theScanner.nextInt();
-		int canvasHeight=800;
+		int canvasHeight=theScanner.nextInt();
+//		int canvasHeight=800;
+
+		System.out.println("please enter a random seed between 0 16777215: ");
+		int seed=theScanner.nextInt();
+		System.out.println("please enter the number of nurons to gennerate: ");
+		int nroncount=theScanner.nextInt();
+		
 		theScanner.close();
 		ViewableFlatLand flatland = new ViewableFlatLand(canvasWidth, canvasHeight,true);
 		canvas.setPreferredSize(new Dimension(canvasWidth,canvasHeight));
@@ -38,7 +44,7 @@ public class BANG extends LOG{
 		
 		FlatLandWindow flatLandWindow = new FlatLandWindow(canvas);
 		
-		TheStartCamera camera = new TheStartCamera(canvasWidth,canvasHeight,0,0,flatland);
+		TheStartCamera camera = new TheStartCamera(canvasWidth,canvasHeight,0,0,flatland,seed,nroncount,canvas);
 		
 		camera.setKeyBindingsForPlayer(flatLandWindow);
 		
@@ -55,9 +61,11 @@ public class BANG extends LOG{
 
 
 			long start = System.currentTimeMillis();
-			camera.takePictureOfFlatLand(canvas);
+			camera.takePictureOfFlatLand();
 			
 			long end = System.currentTimeMillis();
+			
+			//System.err.println("time to take picture: "+(end-start));
 			flatland.setTime(flatland.getTime()+1);
 
 			

@@ -49,12 +49,14 @@ public class FlatLander {
 	private boolean isPulse = true;
 	private int pulseCount = 0;
 	private int timer = 0;
+	private int dendCont;
 
 	public class XYPair {
+		private int timer = 100;
 		private int x;
 		private int y;
 		private double direction;
-		private XYPair parent;
+		private XYPair parent = null;
 		public ArrayList<XYPair> theBranches;
 		private long identifier;
 		private boolean grow = true;
@@ -63,10 +65,11 @@ public class FlatLander {
 		public Color backFireColor;
 		public Color fireAndBackFireColor;
 		private boolean fire = false;
+		private boolean hasbeenbackfire = false;
 		private boolean hasbeenfire = false;
-		private int fireCount;
-		private boolean backFire;
-		private int backFireCount;
+		private int fireCount = 0;
+		private boolean backFire = false;
+		private int backFireCount = 0;
 		private int length;
 		private BranchType type;
 		public Synapse dendriteSynapse;
@@ -75,6 +78,10 @@ public class FlatLander {
 		public Color axonColor;
 		public Color dendriteSynapseColor;
 		public Color axonSynapseColor;
+
+		public boolean isfire() {
+			return fire;
+		}
 
 		public boolean getGrow() {
 			return grow;
@@ -271,11 +278,19 @@ public class FlatLander {
 			return this.axonSynapseColor;
 		}
 
+		public boolean isHasbeenbackfire() {
+			return hasbeenbackfire;
+		}
+
+		public void setHasBeenBackFire(boolean hasbeenfire) {
+			this.hasbeenbackfire = hasbeenfire;
+		}
+
 		public boolean isHasbeenfire() {
 			return hasbeenfire;
 		}
 
-		public void setHasBeenBackFire(boolean hasbeenfire) {
+		public void setHasbeenfire(boolean hasbeenfire) {
 			this.hasbeenfire = hasbeenfire;
 		}
 	}
@@ -296,6 +311,7 @@ public class FlatLander {
 			int dendriteDirection, int dendriteLength, Color color, Color fireColor, Color backFireColor,
 			Color fireAndBackFireColor, Color dendriteSynapseColor, Color axonSynapeColor, Color dendriteColor,
 			Color axonColor) {
+		dendCont = dendrites;
 		this.setNuronType(nuronType);
 		this.seed = seed;
 		this.flatLand = flatland;
@@ -397,6 +413,40 @@ public class FlatLander {
 
 	}
 
+	private XYPair buildADendrite(int dendriteDirection, int dendriteLength, int dendriteAngle, Color color,
+			Color fireColor, Color backFireColor, Color fireAndBackFireColor, Color dendriteSynapseColor,
+			Color axonSynapseColor, Color dendriteColor, Color axonColor,int seed) {
+
+		XYPair xyPair = new XYPair();
+		xyPair.setType(BranchType.Dendrite);
+		xyPair.setBaseColor(color);
+		xyPair.setFireColor(fireColor);
+		xyPair.setBackFireColor(backFireColor);
+		xyPair.setFireAndBackFireColor(fireAndBackFireColor);
+		xyPair.setDendriteColor(dendriteColor);
+		xyPair.setDendriteSynapseColor(dendriteSynapseColor);
+		xyPair.setAxonColor(axonColor);
+		xyPair.setAxonSynapseColor(axonSynapseColor);
+		xyPair.setIdentifier(seed);
+		xyPair.setLength(dendriteLength);
+		
+
+		int angle = dendriteAngle;
+		dendriteDirection = dendriteDirection + dendriteAngle;
+		double directionInRadians = Math.toRadians(dendriteDirection);
+		xyPair.setDirection(directionInRadians);
+		double round = 10 * Math.cos(directionInRadians);
+
+		round = Math.round(round);
+
+		xyPair.setX((int) (xposinflatland + round));
+		double round2 = 10 * Math.sin(directionInRadians);
+		round2 = Math.round(round2);
+		xyPair.setY((int) (yposinflatland + round2));
+		return xyPair;
+
+	}
+
 	private void buildAxon(int axon2, int axonDirection, int axonLength, Color color, Color fireColor,
 			Color backFireColor, Color fireAndBackFireColor, Color dendriteSynapseColor, Color axonSynapseColor,
 			Color dendriteColor, Color axonColor) {
@@ -435,6 +485,43 @@ public class FlatLander {
 			setAxon(xyPair);
 			axon2--;
 		}
+	}
+
+	private XYPair buildAnAxon(int axonDirection, int axonLength, Color color, Color fireColor, Color backFireColor,
+			Color fireAndBackFireColor, Color dendriteSynapseColor, Color axonSynapseColor, Color dendriteColor,
+			Color axonColor) {
+
+		XYPair xyPair = new XYPair();
+		xyPair.setType(BranchType.Axon);
+		xyPair.setLength(axonLength);
+		xyPair.setBaseColor(color);
+		xyPair.setFireColor(fireColor);
+		xyPair.setBackFireColor(backFireColor);
+		xyPair.setFireAndBackFireColor(fireAndBackFireColor);
+		xyPair.setDendriteColor(dendriteColor);
+		xyPair.setDendriteSynapseColor(dendriteSynapseColor);
+		xyPair.setAxonSynapseColor(axonSynapseColor);
+		xyPair.setAxonColor(axonColor);
+		xyPair.setIdentifier(seed);
+
+		double directionInRadians = Math.toRadians(axonDirection);
+		xyPair.setDirection(directionInRadians);
+		double round = 10 * Math.cos(directionInRadians);
+		if (round < 0) {
+			round = Math.floor(round);
+		} else if (round > 0) {
+			round = Math.round(round);
+		}
+		xyPair.setX((int) (xposinflatland + round));
+		double round2 = 10 * Math.sin(directionInRadians);
+		if (round2 < 0) {
+			round2 = Math.floor(round2);
+		} else if (round2 > 0) {
+			round2 = Math.round(round2);
+		}
+		xyPair.setY((int) (yposinflatland + round2));
+		return xyPair;
+
 	}
 
 	public boolean fire() {
@@ -553,7 +640,7 @@ public class FlatLander {
 					round2 = Math.round(round2);
 				}
 				xyPair.setY((int) (yposinflatland + round2));
-				getDendrites().add(xyPair);
+				dendrites.add(xyPair);
 				count++;
 			}
 
@@ -567,53 +654,15 @@ public class FlatLander {
 
 		}
 
-//		if (getAxon() == null) {
-//			int direction = (int) (generator.nextDouble(xposinflatland, yposinflatland, flatLand.getTime(), 0, 360));
-//			int length = (int) (generator.nextDouble(xposinflatland, yposinflatland, flatLand.getTime(), 5000, 10000));
-//			Color color = Color.black;
-//			Color fireColor = Color.MAGENTA;
-//			Color backFireColor = Color.YELLOW;
-//			Color fireAndBackFireColor = Color.PINK;
-//			Color dendriteColor = Color.CYAN;
-//			Color axonColor = Color.MAGENTA;
-//			XYPair xyPair = new XYPair();
-//			xyPair.setType(BranchType.Axon);
-//			xyPair.setLength(length);
-//			xyPair.setBaseColor(color);
-//			xyPair.setFireColor(fireColor);
-//			xyPair.setBackFireColor(backFireColor);
-//			xyPair.setFireAndBackFireColor(fireAndBackFireColor);
-//			xyPair.setDendriteColor(dendriteColor);
-//			xyPair.setAxonColor(axonColor);
-//			xyPair.setIdentifier(seed);
-//
-//			double directionInRadians = Math.toRadians(direction);
-//			xyPair.setDirection(directionInRadians);
-//			double round = Math.cos(directionInRadians);
-//			if (round < 0) {
-//				round = Math.floor(round);
-//			} else if (round > 0) {
-//				round = Math.round(round);
-//			}
-//			xyPair.setX((int) (xposinflatland + round));
-//			double round2 = Math.sin(directionInRadians);
-//			if (round2 < 0) {
-//				round2 = Math.floor(round2);
-//			} else if (round2 > 0) {
-//				round2 = Math.round(round2);
-//			}
-//			xyPair.setY((int) (yposinflatland + round2));
-//			setAxon(xyPair);
-//		} else {
 		XYPair axon2 = getAxon();
 		if (axon2 != null)
 			goToEnd(axon2);
-//		}
+
 	}
 
 	private void goToEnd(XYPair pair) {
 
-		if (pair.getGrow()) {
+		if (pair.grow) {
 			if (pair.getBranches() != null) {
 				for (XYPair xyPair : pair.getBranches()) {
 					if (xyPair != null) {
@@ -629,6 +678,8 @@ public class FlatLander {
 					XYPair xyPair = new XYPair();
 					xyPair.setType(pair.getType());
 					xyPair.setLength(pair.getLength() - 1);
+					if(xyPair.getLength()==0)
+						xyPair.setGrow(false);
 					xyPair.setIdentifier(seed);
 					xyPair.setBaseColor(pair.getBaseColor());
 					xyPair.setFireColor(pair.getFireColor());
@@ -651,7 +702,6 @@ public class FlatLander {
 								+ direction * plusMinus);
 						xyPair.setParent(pair);
 						double directionInRadians2 = Math.toRadians(direction);
-//						double directionInRadians2 = Math.toRadians(Math.toDegrees(pair.direction));
 						xyPair.setDirection(directionInRadians2);
 
 						double round3 = Math.cos(directionInRadians2);
@@ -677,34 +727,53 @@ public class FlatLander {
 					branches2.add(xyPair);
 
 					pair.setBranches(branches2);
-				} else {
-					ArrayList<XYPair> dendrites2 = getDendrites();
-					ArrayList<XYPair> toremove = new ArrayList<XYPair>();
-					
-					for (XYPair xyPair2 : dendrites2) {
-						if (!hasBeenFired(xyPair2)) {
-							toremove.add(xyPair2);
+				}
+			}
+		} else {
+			pair.timer--;
+			if (pair != null ) {
+				boolean toremove = false;
+				XYPair parent = pair;
+				XYPair aDend = null;
+				XYPair aaxon = null;
+				if (parent != null&& parent.timer==0) {
+					if (pair.type == BranchType.Dendrite) {
+						while (parent.getParent() != null) {
+							parent = parent.parent;
+							if (parent.parent == null) {
+								break;
+							}
 						}
-					}
+						if (parent != null) {
+							if (!hasBeenBackFired(parent)) {
+								aDend = buildADendrite(2, pair.length, 25, parent.baseColor, parent.fireColor,
+										parent.backFireColor, parent.fireAndBackFireColor, parent.dendriteSynapseColor,
+										parent.axonSynapseColor, parent.dendriteColor, parent.axonColor,(int)(Math.random()*10000000));
+								ArrayList<XYPair> dendrites2 = getDendrites();
+								dendrites2.remove(parent);
+								dendrites2.add(aDend);
+								setDentrites(dendrites2);
+							}
+						}
+					} 
+					if (pair.type == BranchType.Axon) {
+						parent = pair;
+						while (parent.getParent() != null) {
 
-					int count = toremove.size();
-					for (XYPair xyPair2 : toremove) {
-						dendrites2.remove(xyPair2);
-					}
-					
-					
-					
-					if (toremove.size()>0) {
-						buildDendrites(toremove.size(), 2, toremove.get(0).length, 25, toremove.get(0).baseColor,
-								toremove.get(0).fireColor, toremove.get(0).backFireColor,
-								toremove.get(0).fireAndBackFireColor, toremove.get(0).dendriteSynapseColor,
-								toremove.get(0).axonSynapseColor, toremove.get(0).dendriteColor,
-								toremove.get(0).axonColor);
+							parent = parent.parent;
+							if (parent.parent == null) {
+								break;
+							}
+						}
+						if (parent != null) {
+							if ((!hasBeenFired(parent))) {
+								aaxon = buildAnAxon(2, parent.length, parent.baseColor, parent.fireColor,
+										parent.backFireColor, parent.fireAndBackFireColor, parent.dendriteSynapseColor,
+										parent.axonSynapseColor, parent.dendriteColor, parent.axonColor);
+								axon = aaxon;
+							}
+						}
 
-						ArrayList<XYPair> dendrites3 = getDendrites();
-						dendrites3.addAll(dendrites2);
-						setDentrites(dendrites3);
-						//timer 
 					}
 
 				}
@@ -712,14 +781,23 @@ public class FlatLander {
 		}
 	}
 
-	private boolean hasBeenFired(XYPair xyPair2) {
-		if(xyPair2.hasbeenfire || xyPair2.backFire)return true;
-		else if(xyPair2.getBranches()!=null)
-				return hasBeenFired(xyPair2.getBranches().get(0));
-		else return false;
+	private boolean hasBeenBackFired(XYPair xyPair2) {
+		if (xyPair2.isHasbeenbackfire() || xyPair2.getBackFire())
+			return true;
+		else if (xyPair2.getBranches() != null)
+			return hasBeenBackFired(xyPair2.getBranches().get(0));
+		else
+			return false;
 	}
 
-
+	private boolean hasBeenFired(XYPair xyPair2) {
+		if (xyPair2.isHasbeenfire() || xyPair2.isFire())
+			return true;
+		else if (xyPair2.getBranches() != null)
+			return hasBeenFired(xyPair2.getBranches().get(0));
+		else
+			return false;
+	}
 
 	private double averageOfParents(XYPair pair, double direction, int i) {
 		if (pair == null) {
@@ -807,7 +885,6 @@ public class FlatLander {
 				fire();
 				if (this.fire) {
 					axon2.setFire(true);
-					
 					axon2.setFireCount(1);
 				}
 			} else {
@@ -824,20 +901,23 @@ public class FlatLander {
 
 	private void updateToEnd(XYPair pair) {
 		if (pair.getBranches() != null) {
-			if (pair.getBranches().size()>0) {
+			if (pair.getBranches().size() > 0) {
 				if (pair.isFire() && pair.getFireCount() == 0) {
 					if (pair.getBranches() != null) {
 						if (pair.getBranches().get(0).parent != null) {
 							pair.getBranches().get(0).parent.setFire(false);
 							pair.getBranches().get(0).parent.setFireCount(0);
+							pair.getBranches().get(0).parent.setHasbeenfire(true);
 						}
 						pair.getBranches().get(0).setFire(true);
 						pair.getBranches().get(0).setFireCount(1);
+						pair.getBranches().get(0).setHasbeenfire(true);
 					}
-					
+
 				} else if (pair.isFire() && pair.getFireCount() > 0) {
-					
+
 					pair.setFireCount(pair.getFireCount() - 1);
+					pair.setHasbeenfire(true);
 				}
 
 				if (pair.getBranches().size() != 0) {
@@ -848,17 +928,19 @@ public class FlatLander {
 			if (pair.isFire() && pair.getFireCount() == 0) {
 				pair.setFire(false);
 				pair.setFireCount(0);
+				pair.setHasbeenfire(true);
 			} else if (pair.isFire() && pair.getFireCount() > 0) {
 				pair.setFireCount(pair.getFireCount() - 1);
+				pair.setHasbeenfire(true);
 			}
 
 			if (pair.getBackFire() && pair.getBackFireCount() == 0) {
 				pair.setBackFire(false);
 				pair.setHasBeenBackFire(true);
 				pair.setBackFireCount(0);
-				if(pair.parent!=null) {
-				pair.parent.setBackFire(true);
-				pair.parent.setBackFireCount(1);
+				if (pair.parent != null) {
+					pair.parent.setBackFire(true);
+					pair.parent.setBackFireCount(1);
 				}
 			} else if (pair.getBackFire() && pair.getBackFireCount() > 0) {
 				pair.setHasBeenBackFire(true);
